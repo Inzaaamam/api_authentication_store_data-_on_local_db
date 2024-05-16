@@ -6,6 +6,7 @@ abstract class LoginState {}
 class LoginInitialState extends LoginState {}
 
 class LoginLoadingState extends LoginState {}
+class GoogleLoginLoadingState extends LoginState {}
 
 class LoginSuccessState extends LoginState {
   final ModelClass user;

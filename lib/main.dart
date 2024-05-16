@@ -9,9 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() { // Initialize the FFI
   // sqfliteFfiInit();
-  // // Change the default factory to FFI implementation
+  // Change the default factory to FFI implementation
   // databaseFactory = databaseFactoryFfi;
-
   runApp( const MyApp());
 }
 class MyApp extends StatelessWidget {

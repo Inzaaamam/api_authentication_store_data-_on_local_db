@@ -4,7 +4,6 @@ import 'package:api_login/postdata/database.dart';
 import 'package:api_login/postdata/model_class.dart';
 import 'package:api_login/screen/api_service.dart';
 import 'package:bloc/bloc.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -50,7 +49,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         int? userId = prefs.getInt('userId');
         if (userId != null) {
           List<Map<String, dynamic>> users = await SQLHelper.getItems();
-          var userMap = users.firstWhere((user) => user['id'] == userId,);
+          var userMap = users.firstWhere(
+            (user) => user['id'] == userId,
+          );
           // ignore: unnecessary_null_comparison
           if (userMap != null) {
             ModelClass userModel = ModelClass.fromJson(userMap);
@@ -63,6 +64,28 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
       } else {
         emit(LoginInitialState());
+      }
+    });
+   on<GoogleLoginEvent>((event, emit) async {
+      emit(GoogleLoginLoadingState());
+      try {
+        ModelClass user = await ApiService.authenticate(
+          event.username,
+          event.password,
+        );
+        await SQLHelper.createItems(
+          user.id!,
+          user.username!,
+          user.email!,
+          user.firstName!,
+          user.lastName!,
+          user.gender!,
+          user.image!,
+          user.token!,
+        );
+        emit(LoginSuccessState(user));
+      } catch (error) {
+        emit(LoginFailureState(error.toString()));
       }
     });
   }
