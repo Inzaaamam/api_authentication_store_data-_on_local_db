@@ -20,6 +20,7 @@ class SQLHelper {
       'auth_db.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
+        // ignore: avoid_print
         print('...database');
         await createTables(database);
       },

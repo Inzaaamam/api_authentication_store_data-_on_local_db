@@ -1,5 +1,9 @@
+import 'package:api_login/bloc/auth/auth_bloc.dart';
+import 'package:api_login/bloc/auth/auth_event.dart';
 import 'package:api_login/postdata/model_class.dart';
+import 'package:api_login/screen/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthSuccess extends StatelessWidget {
   final ModelClass user;
@@ -8,31 +12,49 @@ class AuthSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: 
+       AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Welcome, ${user.username}', style: const TextStyle(color: Colors.white),),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout, color: Colors.white,),
+            onPressed: () {
+              BlocProvider.of<LoginBloc>(context).add(PerformLogoutEvent());
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginForm(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            color: Colors.blue,
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(onPressed: (){
-                    Navigator.pop(context);
-                  },icon: const Icon(Icons.arrow_back_ios ,size: 16,
-                  color: Colors.white,),),
-                  // Image.network(user.image ?? ''),
-                  const Spacer(flex: 1,),
-                  Text('Welcome, ${user.username}',
-                      style: const TextStyle(color: Colors.white)),
-                     const  Spacer(flex: 2,),
-                ],
-              ),
-            ),
-          ),
+          // Container(
+          //   color: Colors.blue,
+          //   height: 70,
+          //   child: Padding(
+          //     padding: const EdgeInsets.fromLTRB(16 ,25,16,0),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         IconButton(onPressed: (){
+          //           Navigator.pop(context);
+          //         },icon: const Icon(Icons.arrow_back_ios ,size: 22,
+          //         color: Colors.white,),),
+          //         // Image.network(user.image ?? ''),
+          //         const Spacer(flex: 1,),
+          //         Text('Welcome, ${user.username}',
+          //             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+          //            const  Spacer(flex: 2,),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 50,20,0),

@@ -21,12 +21,10 @@ class _LoginFormState extends State<LoginForm> {
       // ignore: no_leading_underscores_for_local_identifiers
       final LoginBloc _loginBloc = BlocProvider.of<LoginBloc>(context);
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.blue,
-        title: const Text('Login Screen', style: TextStyle(color: Colors.white),),),
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => AuthSuccess(user: state.user),
