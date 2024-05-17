@@ -95,6 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                     const SizedBox(height: 30),
 
                     ReactiveTextField<String>(
+                    
                       formControlName: 'password',
                       obscureText: true,
                       decoration: InputDecoration(
@@ -124,6 +125,7 @@ class _LoginFormState extends State<LoginForm> {
                         ValidationMessage.required: (error) =>
                             'Password is required',
                       },
+                      
                     ),
                     const SizedBox(height: 30),
                     Row(
